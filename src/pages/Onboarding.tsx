@@ -70,7 +70,7 @@ export default function Onboarding() {
         preferredSplit: "upper_lower",
     });
     const [isGenerating, setIsGenerating] = useState(false);
-    const [error, setError] = useState("");
+    const [, setError] = useState("");
     const navigate = useNavigate();
 
     function updateForm(field: string, value: string) {
