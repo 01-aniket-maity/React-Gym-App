@@ -19,7 +19,7 @@ export default function Navbar() {
                         <>
                             <Link to="/profile">
                                 <Button variant="ghost" size="sm">
-                                    <span className="hidden sm:inline">My Plan</span>
+                                    <span>My Plan</span>
                                 </Button>
                             </Link>
                             <div className="scale-90 sm:scale-100">
