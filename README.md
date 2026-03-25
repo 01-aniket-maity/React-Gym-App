@@ -1,28 +1,4 @@
 # 🏋️ React Gym AI Planner
-
-> **A modern AI-powered gym planning application that generates personalized training plans based on your fitness goals, experience level, and available equipment.**
-
-**Live App:** [https://react-gym-app-beta.vercel.app](https://react-gym-app-beta.vercel.app)
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Architecture & Data Flow](#architecture--data-flow)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [API Documentation](#api-documentation)
-- [Environment Variables](#environment-variables)
-- [Development](#development)
-- [Deployment](#deployment)
-
----
-
-## 🎯 Overview
-
 React Gym AI Planner is a full-stack web application that helps fitness enthusiasts create personalized training plans powered by artificial intelligence. Users can:
 
 1. **Sign up/Login** with secure Neon authentication
@@ -40,4 +16,50 @@ This project demonstrates modern web development practices with a **React fronte
 - ✅ **User Authentication** - Secure sign-up and login via Neon Auth
 - ✅ **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
 - ✅ **Onboarding Wizard** - 7-step questionnaire for fitness profiling
-Made with ❤️ for fitness enthusiasts
+- ✅ **Training Plan Display** - Beautiful visualization of AI-generated plans
+- ✅ **Plan Regeneration** - Ability to regenerate plans on demand
+- ✅ **Dark Theme** - Modern dark UI with Tailwind CSS
+- ✅ **Type Safety** - Full TypeScript coverage for reliability
+
+### Backend Features
+- ✅ **REST API** - Clean, documented endpoints
+- ✅ **AI Integration** - OpenAI GPT integration for plan generation
+- ✅ **Database Management** - Prisma ORM with PostgreSQL
+- ✅ **User Profiles** - Store and manage user fitness profiles
+- ✅ **Plan Versioning** - Track multiple plan versions per user
+- ✅ **CORS Support** - Secure cross-origin requests
+
+---
+
+## 🛠 Tech Stack
+
+### **Frontend**
+| Technology | Purpose | Version |
+|-----------|---------|---------|
+| **React** | UI Framework | 19.2.0 |
+| **TypeScript** | Type Safety | 5.9.3 |
+| **React Router** | Client-side Routing | 7.13.1 |
+| **Vite** | Build Tool & Dev Server | 7.3.1 |
+| **Tailwind CSS** | Styling | 4.2.1 |
+| **Neon Auth** | Authentication | 0.2.0-beta.1 |
+| **Lucide React** | Icons | 0.577.0 |
+| **ESLint** | Code Quality | 9.39.1 |
+
+### **Backend**
+| Technology | Purpose | Version |
+|-----------|---------|---------|
+| **Express.js** | Web Framework | 5.2.1 |
+| **TypeScript** | Type Safety | Latest |
+| **Prisma** | ORM | 7.4.2 |
+| **PostgreSQL** | Database | Latest |
+| **OpenAI** | AI Plan Generation | 6.27.0 |
+| **Node.js** | Runtime | 18+ |
+
+### **Infrastructure**
+| Service | Purpose |
+|---------|---------|
+| **Neon** | PostgreSQL Database Hosting |
+| **Vercel** | Frontend Deployment |
+| **OpenAI API** | Training Plan Generation |
+
+---
