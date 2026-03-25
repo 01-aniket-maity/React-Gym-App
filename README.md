@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# React Gym App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Documentation
 
-Currently, two official plugins are available:
+### Architecture Diagrams
+![Architecture Diagram](link_to_architecture_diagram)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Tech Stack
+- **Frontend:** React, Redux
+- **Backend:** Node.js, Express
+- **Database:** MongoDB
 
-## React Compiler
+### Features
+- User Authentication
+- Workout Plans
+- Exercise Tracking
+- Progress Dashboard
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Setup Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/01-aniket-maity/React-Gym-App.git
+   ```  
+2. Navigate to the project directory:
+   ```bash
+   cd React-Gym-App
+   ```  
+3. Install the necessary dependencies:
+   ```bash
+   npm install
+   ```  
+4. Start the application:
+   ```bash
+   npm start
+   ```  
 
-## Expanding the ESLint configuration
+### API Endpoints
+- **GET /api/workouts**: Retrieve all workouts
+- **POST /api/workouts**: Create a new workout
+- **PUT /api/workouts/:id**: Update a workout
+- **DELETE /api/workouts/:id**: Delete a workout
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## License
+This project is licensed under the MIT License.
