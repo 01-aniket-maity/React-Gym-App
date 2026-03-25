@@ -6,6 +6,9 @@ React Gym AI Planner is a full-stack web application that helps fitness enthusia
 3. **Get AI-generated training plans** customized to their profile using OpenAI
 4. **View and manage** their training plans with version tracking
 
+# 🚀 Live Demo
+👉 https://react-gym-app-beta.vercel.app
+
 This project demonstrates modern web development practices with a **React frontend**, **Express backend**, **PostgreSQL database**, and **OpenAI integration**.
 
 ---
