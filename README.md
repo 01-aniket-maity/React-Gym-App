@@ -1,44 +1,43 @@
-# React Gym App
+# 🏋️ React Gym AI Planner
 
-## Project Documentation
+> **A modern AI-powered gym planning application that generates personalized training plans based on your fitness goals, experience level, and available equipment.**
 
-### Architecture Diagrams
-![Architecture Diagram](link_to_architecture_diagram)
+**Live App:** [https://react-gym-app-beta.vercel.app](https://react-gym-app-beta.vercel.app)
 
-### Tech Stack
-- **Frontend:** React, Redux
-- **Backend:** Node.js, Express
-- **Database:** MongoDB
+---
 
-### Features
-- User Authentication
-- Workout Plans
-- Exercise Tracking
-- Progress Dashboard
+## 📋 Table of Contents
 
-### Setup Instructions
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/01-aniket-maity/React-Gym-App.git
-   ```  
-2. Navigate to the project directory:
-   ```bash
-   cd React-Gym-App
-   ```  
-3. Install the necessary dependencies:
-   ```bash
-   npm install
-   ```  
-4. Start the application:
-   ```bash
-   npm start
-   ```  
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture & Data Flow](#architecture--data-flow)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Documentation](#api-documentation)
+- [Environment Variables](#environment-variables)
+- [Development](#development)
+- [Deployment](#deployment)
 
-### API Endpoints
-- **GET /api/workouts**: Retrieve all workouts
-- **POST /api/workouts**: Create a new workout
-- **PUT /api/workouts/:id**: Update a workout
-- **DELETE /api/workouts/:id**: Delete a workout
+---
 
-## License
-This project is licensed under the MIT License.
+## 🎯 Overview
+
+React Gym AI Planner is a full-stack web application that helps fitness enthusiasts create personalized training plans powered by artificial intelligence. Users can:
+
+1. **Sign up/Login** with secure Neon authentication
+2. **Complete an onboarding questionnaire** about their fitness goals and preferences
+3. **Get AI-generated training plans** customized to their profile using OpenAI
+4. **View and manage** their training plans with version tracking
+
+This project demonstrates modern web development practices with a **React frontend**, **Express backend**, **PostgreSQL database**, and **OpenAI integration**.
+
+---
+
+## ✨ Features
+
+### Frontend Features
+- ✅ **User Authentication** - Secure sign-up and login via Neon Auth
+- ✅ **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
+- ✅ **Onboarding Wizard** - 7-step questionnaire for fitness profiling
+Made with ❤️ for fitness enthusiasts
