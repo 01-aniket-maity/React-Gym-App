@@ -36,7 +36,7 @@ export async function generateTrainingPlan(profile: UserProfile | Record<string,
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "nvidia/nemotron-3-nano-30b-a3b:free",
+      model: "openai/gpt-oss-20b:free",
       messages: [
         {
           role: "system",
