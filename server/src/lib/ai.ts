@@ -77,6 +77,10 @@ export async function generateTrainingPlan(profile: UserProfile | Record<string,
 
     const planData = JSON.parse(content);
 
+    console.log("===== RAW AI RESPONSE =====");
+    console.dir(planData, { depth: null });
+
+
     return formatPlanResponse(planData, normalizedProfile);
   } catch (error) {
     console.error("[AI] Error generating training plan:", error);
