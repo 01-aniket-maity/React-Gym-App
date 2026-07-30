@@ -37,7 +37,7 @@ export async function generateTrainingPlan(profile: UserProfile | Record<string,
   try {
     const completion = await openai.chat.completions.create({
       // model: "openai/gpt-oss-20b:free",
-      model: "inclusionai/ling-3.0-flash:free",
+      model: "google/gemma-4-26b-a4b-it:free",
       messages: [
         {
           role: "system",
