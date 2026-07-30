@@ -67,6 +67,9 @@ export async function generateTrainingPlan(profile: UserProfile | Record<string,
 
     const content = completion.choices[0].message.content;
 
+   console.log("RAW CONTENT:");
+   console.log(content);
+
     if (!content) {
       console.error(
         "[AI] No content in response:",
