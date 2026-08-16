@@ -26,7 +26,7 @@ This project demonstrates modern web development practices with a **React fronte
 
 ### Backend Features
 - ✅ **REST API** - Clean, documented endpoints
-- ✅ **AI Integration** - OpenAI SDK with NVIDIA: Nemotron 3 Nano 30B A3B model integration for plan generation
+- ✅ **AI Integration** - OpenAI SDK 
 - ✅ **Database Management** - Prisma ORM with PostgreSQL
 - ✅ **User Profiles** - Store and manage user fitness profiles
 - ✅ **Plan Versioning** - Track multiple plan versions per user
