@@ -188,7 +188,7 @@ export default function Onboarding() {
                             <h1 className="text-2xl font-bold mb-2">Creating your Plan</h1>
                             <p className="text-[var(--color-muted)]">
                                 {" "}
-                                Our AI is building your personalized training program...
+                                Please wait a moment... Our AI is building your personalized training program...
                             </p>
                         </Card>
                     )}
