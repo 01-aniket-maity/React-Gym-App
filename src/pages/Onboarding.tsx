@@ -2,7 +2,7 @@ import { RedirectToSignIn, SignedIn } from "@neondatabase/auth/react";
 import { useAuth } from "../context/AuthContext"
 import { Card } from "../components/ui/Card";
 import { Select } from "../components/ui/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Textarea } from "../components/ui/Textarea";
 import { Button } from "../components/ui/Button";
@@ -70,8 +70,15 @@ export default function Onboarding() {
         preferredSplit: "upper_lower",
     });
     const [isGenerating, setIsGenerating] = useState(false);
-    const [, setError] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!error) return;
+
+        const timeout = window.setTimeout(() => setError(""), 5000);
+        return () => window.clearTimeout(timeout);
+    }, [error]);
 
     function updateForm(field: string, value: string) {
         setFormData((prev) => ({ ...prev, [field]: value }));
@@ -95,7 +102,8 @@ export default function Onboarding() {
             await generatePlan();
             navigate("/profile");
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to save profile');
+            console.error("Unable to submit onboarding questionnaire:", err);
+            setError("Something went wrong. Please try again.");
         } finally {
             setIsGenerating(false);
         }
@@ -108,6 +116,15 @@ export default function Onboarding() {
     return (
         <SignedIn>
             <div className="min-h-screen pt-24 pb-12 px-6">
+                {error && (
+                    <div
+                        role="alert"
+                        aria-live="assertive"
+                        className="fixed right-6 top-24 z-50 max-w-sm rounded-lg border border-red-500/50 bg-red-950 px-4 py-3 text-sm text-red-100 shadow-lg"
+                    >
+                        {error}
+                    </div>
+                )}
                 <div className="max-w-xl mx-auto">
                     {/* Progress Indicator */}
 
@@ -188,7 +205,7 @@ export default function Onboarding() {
                             <h1 className="text-2xl font-bold mb-2">Creating your Plan</h1>
                             <p className="text-[var(--color-muted)]">
                                 {" "}
-                                Please wait a moment... Our AI is building your personalized training program...
+                                Please wait a moment...Our AI is building your personalized training program...
                             </p>
                         </Card>
                     )}
