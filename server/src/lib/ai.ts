@@ -39,7 +39,7 @@ export async function generateTrainingPlan(
   const prompt = buildPrompt(normalizedProfile);
 
   const models = [
-    "nex-agi/nex-n2.5-mini:free",
+    "qwen/qwen3.8-27b:free",
     "liquid/lfm-2.5-2.6b:free",
     "nvidia/nemotron-3-super-120b-a12b:free",
     "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
