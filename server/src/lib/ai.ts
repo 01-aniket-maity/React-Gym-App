@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { TrainingPlan, UserProfile } from "../../types";
 
@@ -20,48 +20,34 @@ export async function generateTrainingPlan(
     preferred_split: profile.preferred_split || "upper_lower",
   };
 
-  const apiKey = process.env.OPEN_ROUTER_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-    throw new Error("OPEN_ROUTER_KEY is not set in environment variables");
+    throw new Error("GEMINI_API_KEY is not set in environment variables");
   }
 
-  const openai = new OpenAI({
+  const ai = new GoogleGenAI({
     apiKey,
-    baseURL: "https://openrouter.ai/api/v1",
-    defaultHeaders: {
-      "HTTP-Referer":
-        process.env.BASE_URL || "http://localhost:3001",
-      "X-Title": "GymAI Plan Generator",
-    },
   });
 
   const prompt = buildPrompt(normalizedProfile);
 
-  const models = [
-    "z-ai/glm-5.2:free",
-    "liquid/lfm-2.5-2.6b:free",
-    "nvidia/nemotron-3-super-120b-a12b:free",
-    "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
-  ];
+  // Gemini model used for workout-plan generation.
+  const model = "gemini-3.5-flash-lite";
 
-  let lastError: any = null;
+  try {
+    console.log("==========================================");
+    console.log(`[AI] Trying Gemini model: ${model}`);
+    console.log("==========================================");
 
-  for (const model of models) {
-    try {
-      console.log("==========================================");
-      console.log(`[AI] Trying model: ${model}`);
-      console.log("==========================================");
+    const aiStart = Date.now();
 
-      const aiStart = Date.now();
+    const response = await ai.models.generateContent({
+      model,
+      contents: prompt,
 
-      const completion = await openai.chat.completions.create({
-        model,
-
-        messages: [
-          {
-            role: "system",
-            content: `
+      config: {
+        systemInstruction: `
 You are an expert fitness trainer and workout program designer.
 
 Your job is to generate a personalized workout plan.
@@ -90,269 +76,243 @@ The top-level JSON object MUST contain exactly:
 
 The field names are case-sensitive.
 `,
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
 
         temperature: 0.2,
 
-        response_format: {
-          type: "json_schema",
+        responseMimeType: "application/json",
 
-          json_schema: {
-            name: "training_plan",
+        responseSchema: {
+          type: "object",
 
-            strict: true,
-
-            schema: {
+          properties: {
+            overview: {
               type: "object",
 
               properties: {
-                overview: {
-                  type: "object",
-
-                  properties: {
-                    goal: {
-                      type: "string",
-                    },
-
-                    frequency: {
-                      type: "string",
-                    },
-
-                    split: {
-                      type: "string",
-                    },
-
-                    notes: {
-                      type: "string",
-                    },
-                  },
-
-                  required: [
-                    "goal",
-                    "frequency",
-                    "split",
-                    "notes",
-                  ],
-
-                  additionalProperties: false,
+                goal: {
+                  type: "string",
                 },
 
-                weeklySchedule: {
-                  type: "array",
-
-                  items: {
-                    type: "object",
-
-                    properties: {
-                      day: {
-                        type: "string",
-                      },
-
-                      focus: {
-                        type: "string",
-                      },
-
-                      exercises: {
-                        type: "array",
-
-                        items: {
-                          type: "object",
-
-                          properties: {
-                            name: {
-                              type: "string",
-                            },
-
-                            sets: {
-                              type: "integer",
-                            },
-
-                            reps: {
-                              type: "string",
-                            },
-
-                            rest: {
-                              type: "string",
-                            },
-
-                            rpe: {
-                              type: "number",
-                            },
-
-                            notes: {
-                              type: "string",
-                            },
-
-                            alternatives: {
-                              type: "array",
-
-                              items: {
-                                type: "string",
-                              },
-                            },
-                          },
-
-                          required: [
-                            "name",
-                            "sets",
-                            "reps",
-                            "rest",
-                            "rpe",
-                            "notes",
-                            "alternatives",
-                          ],
-
-                          additionalProperties: false,
-                        },
-                      },
-                    },
-
-                    required: [
-                      "day",
-                      "focus",
-                      "exercises",
-                    ],
-
-                    additionalProperties: false,
-                  },
+                frequency: {
+                  type: "string",
                 },
 
-                progression: {
+                split: {
+                  type: "string",
+                },
+
+                notes: {
                   type: "string",
                 },
               },
 
               required: [
-                "overview",
-                "weeklySchedule",
-                "progression",
+                "goal",
+                "frequency",
+                "split",
+                "notes",
               ],
 
               additionalProperties: false,
             },
+
+            weeklySchedule: {
+              type: "array",
+
+              items: {
+                type: "object",
+
+                properties: {
+                  day: {
+                    type: "string",
+                  },
+
+                  focus: {
+                    type: "string",
+                  },
+
+                  exercises: {
+                    type: "array",
+
+                    items: {
+                      type: "object",
+
+                      properties: {
+                        name: {
+                          type: "string",
+                        },
+
+                        sets: {
+                          type: "integer",
+                        },
+
+                        reps: {
+                          type: "string",
+                        },
+
+                        rest: {
+                          type: "string",
+                        },
+
+                        rpe: {
+                          type: "number",
+                        },
+
+                        notes: {
+                          type: "string",
+                        },
+
+                        alternatives: {
+                          type: "array",
+
+                          items: {
+                            type: "string",
+                          },
+                        },
+                      },
+
+                      required: [
+                        "name",
+                        "sets",
+                        "reps",
+                        "rest",
+                        "rpe",
+                        "notes",
+                        "alternatives",
+                      ],
+
+                      additionalProperties: false,
+                    },
+                  },
+                },
+
+                required: [
+                  "day",
+                  "focus",
+                  "exercises",
+                ],
+
+                additionalProperties: false,
+              },
+            },
+
+            progression: {
+              type: "string",
+            },
           },
+
+          required: [
+            "overview",
+            "weeklySchedule",
+            "progression",
+          ],
+
+          additionalProperties: false,
         },
-      });
+      },
+    });
 
-      console.log(
-        `[AI] ${model} response time: ${
-          Date.now() - aiStart
-        } ms`
-      );
+    console.log(
+      `[AI] ${model} response time: ${
+        Date.now() - aiStart
+      } ms`
+    );
 
-      console.log("[AI] Model used:", completion.model);
+    console.log("[AI] Model used:", model);
 
-      const content =
-        completion.choices[0]?.message?.content;
+    const content = response.text;
 
-      console.log("[AI] RAW CONTENT:");
-      console.log(content);
+    console.log("[AI] RAW CONTENT:");
+    console.log(content);
 
-      if (!content) {
-        throw new Error("No content in AI response");
-      }
+    if (!content) {
+      throw new Error("No content in AI response");
+    }
 
-      const cleanedContent = content
-        .replace(/^```json\s*/i, "")
-        .replace(/^```\s*/i, "")
-        .replace(/\s*```$/i, "")
-        .trim();
+    const cleanedContent = content
+      .replace(/^```json\s*/i, "")
+      .replace(/^```\s*/i, "")
+      .replace(/\s*```$/i, "")
+      .trim();
 
-      console.log("[AI] CLEANED JSON:");
-      console.log(cleanedContent);
+    console.log("[AI] CLEANED JSON:");
+    console.log(cleanedContent);
 
-      let planData: any;
+    let planData: any;
 
-      try {
-        planData = JSON.parse(cleanedContent);
-      } catch (parseError) {
-        console.error(
-          "[AI] Failed to parse JSON:",
-          cleanedContent
-        );
-
-        throw new Error("AI returned invalid JSON");
-      }
-
-      console.log("===== PARSED AI RESPONSE =====");
-      console.dir(planData, { depth: null });
-
-      if (
-        !planData ||
-        typeof planData !== "object" ||
-        !planData.overview ||
-        !Array.isArray(planData.weeklySchedule) ||
-        typeof planData.progression !== "string"
-      ) {
-        console.error(
-          "[AI] Invalid training plan structure:",
-          JSON.stringify(planData, null, 2)
-        );
-
-        throw new Error(
-          "AI returned an invalid training plan structure"
-        );
-      }
-
-      if (
-        planData.weeklySchedule.length !==
-        normalizedProfile.days_per_week
-      ) {
-        console.error(
-          `[AI] Expected ${normalizedProfile.days_per_week} workout days but received ${planData.weeklySchedule.length}`
-        );
-
-        throw new Error(
-          "AI returned an incorrect number of workout days"
-        );
-      }
-
-      console.log(
-        `✅ [AI] Successfully generated plan using ${model}`
-      );
-
-      return formatPlanResponse(
-        planData,
-        normalizedProfile
-      );
-    } catch (error: any) {
-      lastError = error;
-
+    try {
+      planData = JSON.parse(cleanedContent);
+    } catch (parseError) {
       console.error(
-        `❌ [AI] Model failed: ${model}`
+        "[AI] Failed to parse JSON:",
+        cleanedContent
       );
 
+      throw new Error("AI returned invalid JSON");
+    }
+
+    console.log("===== PARSED AI RESPONSE =====");
+    console.dir(planData, { depth: null });
+
+    if (
+      !planData ||
+      typeof planData !== "object" ||
+      !planData.overview ||
+      !Array.isArray(planData.weeklySchedule) ||
+      typeof planData.progression !== "string"
+    ) {
       console.error(
-        "[AI] Status:",
-        error?.status || "unknown"
+        "[AI] Invalid training plan structure:",
+        JSON.stringify(planData, null, 2)
       );
 
-      console.error(
-        "[AI] Error:",
-        error?.message || error
-      );
-
-      console.log(
-        "[AI] Trying next fallback model..."
+      throw new Error(
+        "AI returned an invalid training plan structure"
       );
     }
+
+    if (
+      planData.weeklySchedule.length !==
+      normalizedProfile.days_per_week
+    ) {
+      console.error(
+        `[AI] Expected ${normalizedProfile.days_per_week} workout days but received ${planData.weeklySchedule.length}`
+      );
+
+      throw new Error(
+        "AI returned an incorrect number of workout days"
+      );
+    }
+
+    console.log(
+      `✅ [AI] Successfully generated plan using ${model}`
+    );
+
+    return formatPlanResponse(
+      planData,
+      normalizedProfile
+    );
+  } catch (error: any) {
+    console.error(
+      `❌ [AI] Gemini model failed: ${model}`
+    );
+
+    console.error(
+      "[AI] Status:",
+      error?.status || "unknown"
+    );
+
+    console.error(
+      "[AI] Error:",
+      error?.message || error
+    );
+
+    throw new Error(
+      `Gemini AI failed: ${
+        error?.message || "Unknown error"
+      }`
+    );
   }
-
-  console.error(
-    "❌ [AI] All fallback models failed."
-  );
-
-  throw new Error(
-    `All AI models failed. Last error: ${
-      lastError?.message || "Unknown error"
-    }`
-  );
-}
 
 
 // ======================================================
@@ -616,4 +576,4 @@ Use ONLY:
 Return ONLY the JSON object.
 `;
 }
-
+}
