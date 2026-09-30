@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# 🏋️ React Gym AI Planner
+React Gym AI Planner is a full-stack web application that helps fitness enthusiasts create personalized training plans powered by artificial intelligence. Users can:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. **Sign up/Login** with secure Neon authentication
+2. **Complete an onboarding questionnaire** about their fitness goals and preferences
+3. **Get AI-generated training plans** customized to their profile using OpenAI
+4. **View and manage** their training plans with version tracking
 
-Currently, two official plugins are available:
+# 🚀 Live Demo
+👉 https://react-gym-app-beta.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project demonstrates modern web development practices with a **React frontend**, **Express backend**, **PostgreSQL database**, and **OpenAI integration**.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+### Frontend Features
+- ✅ **User Authentication** - Secure sign-up and login via Neon Auth
+- ✅ **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
+- ✅ **Onboarding Wizard** - 7-step questionnaire for fitness profiling
+- ✅ **Training Plan Display** - Beautiful visualization of AI-generated plans
+- ✅ **Plan Regeneration** - Ability to regenerate plans on demand
+- ✅ **Dark Theme** - Modern dark UI with Tailwind CSS
+- ✅ **Type Safety** - Full TypeScript coverage for reliability
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Backend Features
+- ✅ **REST API** - Clean, documented endpoints
+- ✅ **AI Integration** - OpenAI SDK 
+- ✅ **Database Management** - Prisma ORM with PostgreSQL
+- ✅ **User Profiles** - Store and manage user fitness profiles
+- ✅ **Plan Versioning** - Track multiple plan versions per user
+- ✅ **CORS Support** - Secure cross-origin requests
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠 Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### **Frontend**
+| Technology | Purpose | Version |
+|-----------|---------|---------|
+| **React** | UI Framework | 19.2.0 |
+| **TypeScript** | Type Safety | 5.9.3 |
+| **React Router** | Client-side Routing | 7.13.1 |
+| **Vite** | Build Tool & Dev Server | 7.3.1 |
+| **Tailwind CSS** | Styling | 4.2.1 |
+| **Neon Auth** | Authentication | 0.2.0-beta.1 |
+| **Lucide React** | Icons | 0.577.0 |
+| **ESLint** | Code Quality | 9.39.1 |
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### **Backend**
+| Technology | Purpose | Version |
+|-----------|---------|---------|
+| **Express.js** | Web Framework | 5.2.1 |
+| **TypeScript** | Type Safety | Latest |
+| **Prisma** | ORM | 7.4.2 |
+| **PostgreSQL** | Database | Latest |
+| **OpenAI** | AI Plan Generation | 6.27.0 |
+| **Node.js** | Runtime | 18+ |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### **Infrastructure**
+| Service | Purpose |
+|---------|---------|
+| **Neon** | PostgreSQL Database Hosting |
+| **Vercel** | Frontend Deployment |
+| **Render** | Backend Deployment |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
